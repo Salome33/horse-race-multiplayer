@@ -1,28 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horse Race Multiplayer</title>
     <link rel="stylesheet" href="/css/style.css">
-
 </head>
-
 <body>
 
-<h1>Horse Race Multiplayer</h1>
+<div class="page">
 
-<div class="track">
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>🐎 Horse Race Multiplayer</h1>
+            <p>Regístrate, compra puntos, apuesta y compite en carreras en tiempo real.</p>
+        </div>
+    </header>
 
-    <div class="lane">🐎</div>
-    <div class="lane">🐎</div>
-    <div class="lane">🐎</div>
-    <div class="lane">🐎</div>
+    <main class="container">
 
+        <section class="panel glass">
+            <h2>👤 Registro de usuario</h2>
+            <div class="form-row">
+                <input id="usernameInput" type="text" placeholder="Escribe tu nombre de usuario">
+                <button onclick="registerUser()">Registrarme</button>
+            </div>
+            <p class="hint">Cada usuario recibe <strong>1000 puntos iniciales</strong>.</p>
+        </section>
+
+        <section class="panel glass current-user">
+            <h2>💳 Usuario actual</h2>
+            <div class="user-summary">
+                <div class="summary-card">
+                    <span class="label">ID</span>
+                    <span class="value" id="currentUserId">-</span>
+                </div>
+                <div class="summary-card">
+                    <span class="label">Usuario</span>
+                    <span class="value" id="currentUsername">-</span>
+                </div>
+                <div class="summary-card points-card">
+                    <span class="label">Puntos</span>
+                    <span class="value" id="currentPoints">0</span>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="secondary" onclick="buyPoints()">Comprar 1000 puntos - $10000</button>
+                <button class="secondary" onclick="refreshUser()">Actualizar datos</button>
+            </div>
+        </section>
+
+        <section class="grid-two">
+            <section class="panel glass">
+                <h2>🏁 Sala de carrera</h2>
+                <div class="actions vertical">
+                    <button onclick="joinRace()">Unirme a la sala</button>
+                    <button onclick="startRace()">Iniciar carrera</button>
+                </div>
+                <p class="hint">Máximo 4 jugadores por sala.</p>
+            </section>
+
+            <section class="panel glass">
+                <h2>🎲 Apuesta</h2>
+                <div class="form-column">
+                    <label for="horseSelect">Caballo</label>
+                    <select id="horseSelect">
+                        <option value="OROS">OROS</option>
+                        <option value="COPAS">COPAS</option>
+                        <option value="ESPADAS">ESPADAS</option>
+                        <option value="BASTOS">BASTOS</option>
+                    </select>
+
+                    <label for="betAmount">Puntos a apostar</label>
+                    <input id="betAmount" type="number" min="1" placeholder="Ej: 100">
+
+                    <button onclick="placeBet()">Apostar</button>
+                </div>
+                <p class="hint">Si ganas, recibes <strong>5 veces</strong> lo apostado.</p>
+            </section>
+        </section>
+
+        <section class="panel glass">
+            <h2>🏇 Carrera en vivo</h2>
+
+            <div class="track">
+                <div class="lane">
+                    <div class="lane-header">
+                        <span>OROS</span>
+                        <span class="badge gold">Carril 1</span>
+                    </div>
+                    <div class="track-line">
+                        <div id="horse1" class="horse">🐎</div>
+                        <div class="finish-line"></div>
+                    </div>
+                </div>
+
+                <div class="lane">
+                    <div class="lane-header">
+                        <span>COPAS</span>
+                        <span class="badge red">Carril 2</span>
+                    </div>
+                    <div class="track-line">
+                        <div id="horse2" class="horse">🐎</div>
+                        <div class="finish-line"></div>
+                    </div>
+                </div>
+
+                <div class="lane">
+                    <div class="lane-header">
+                        <span>ESPADAS</span>
+                        <span class="badge blue">Carril 3</span>
+                    </div>
+                    <div class="track-line">
+                        <div id="horse3" class="horse">🐎</div>
+                        <div class="finish-line"></div>
+                    </div>
+                </div>
+
+                <div class="lane">
+                    <div class="lane-header">
+                        <span>BASTOS</span>
+                        <span class="badge green">Carril 4</span>
+                    </div>
+                    <div class="track-line">
+                        <div id="horse4" class="horse">🐎</div>
+                        <div class="finish-line"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel glass">
+            <h2>📢 Estado del sistema</h2>
+            <div id="statusBox" class="status-box">Esperando acciones del usuario...</div>
+        </section>
+
+    </main>
 </div>
 
-<button onclick="startRace()">Start Race</button>
-
 <script src="/js/app.js"></script>
-
 </body>
 </html>
